@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2303,
+    "production_files": 25,
+    "production_packages": 8,
+    "test_files": 10,
+    "production_functions": 167,
+    "decision_points": 340
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": ["Record", "User", "Event", "Audit"],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": ["接收登记请求", "校验标题、内容和分类", "保存Record与创建登记Audit", "展示已登记知识详情"],
+      "test": "TestWorkflowOne"
+    },
+    {
+      "steps": ["登记待审核知识", "审核并更新状态", "归档状态变化与事件", "按状态查询知识"],
+      "test": "TestWorkflowTwo"
+    },
+    {
+      "steps": ["提交知识资料导出", "处理目标状态包装", "记录通知事件", "追踪导出审计"],
+      "test": "TestWorkflowThree"
+    }
+  ]
+}
